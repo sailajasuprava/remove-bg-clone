@@ -1,4 +1,24 @@
+import { useNavigate } from "react-router-dom";
+import { useImage } from "../context/ImageContext";
+
 function Home() {
+  const { setSelectedFile } = useImage();
+  const navigate = useNavigate();
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setSelectedFile(reader.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+    navigate("/upload");
+  };
+
   return (
     <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-4 items-center justify-between px-10 py-12">
       {/* Left */}
@@ -24,17 +44,29 @@ function Home() {
       {/* Right */}
 
       <div className="md:w-1/2 bg-white shadow-2xl rounded-2xl p-10 w-full text-center">
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full mb-4">
+        <label
+          htmlFor="image"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full mb-4"
+        >
           Upload Image
-        </button>
-        <p>or drop a file,</p>
-        <a href="#" className="text-blue-500 underline">
-          paste image
-        </a>{" "}
-        or{" "}
-        <a href="#" className="text-blue-500 underline">
-          URL
-        </a>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+        </label>
+        <p className="mt-6 font-semibold">or drop a file,</p>
+        <p className="text-xs">
+          paste image or{" "}
+          <span
+            className="text-blue-500 underline"
+            onClick={() => prompt("Image URL:")}
+          >
+            URL
+          </span>
+        </p>
       </div>
     </div>
   );
