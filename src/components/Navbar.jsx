@@ -7,22 +7,12 @@ function Navbar() {
           remove<span className="font-light">bg</span>
         </span>
       </div>
-      <nav className="space-x-6 hidden md:flex">
-        <a href="#" className="hover:underline">
-          Remove Background
-        </a>
-        <a href="#" className="hover:underline">
-          Features
-        </a>
-        <a href="#" className="hover:underline">
-          For Business
-        </a>
-        <a href="#" className="hover:underline">
-          Tools & API
-        </a>
-        <a href="#" className="hover:underline">
-          Pricing
-        </a>
+      <nav className="hidden lg:flex">
+        <button className="nav">Remove Background</button>
+        <button className="nav">Features</button>
+        <button className="nav">For Business</button>
+        <button className="nav">Tools & API</button>
+        <button className="nav">Pricing</button>
       </nav>
       <div className="space-x-4">
         <button className="text-sm font-medium">Log in</button>
