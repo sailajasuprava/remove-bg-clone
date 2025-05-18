@@ -20,7 +20,7 @@ function Home() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-4 items-center justify-between px-10 py-12">
+    <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-10 lg:gap-4 items-center justify-between px-10 py-12">
       {/* Left */}
       <div className="md:w-1/2 flex flex-col items-center space-y-6">
         <div className="flex justify-center items-center">

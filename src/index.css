@@ -2,6 +2,13 @@
 
 @layer components {
   .nav {
-    @apply px-4 py-1 cursor-pointer rounded-full hover:bg-gray-200;
+    @apply px-2 py-1 cursor-pointer rounded-full hover:bg-gray-200;
+  }
+
+  .nav-mobile {
+    @apply flex flex-col font-semibold gap-4 py-4 items-center absolute left-0 top-16 bg-white w-full;
+  }
+  .nav-desk {
+    @apply hidden font-semibold lg:flex lg:items-center  lg:gap-4;
   }
 }
