@@ -1,38 +1,55 @@
 import { useImage } from "../context/ImageContext";
 
 const UploadPage = () => {
-  const { selectedFile } = useImage();
+  const { previewImage, bgRemovedImage, handleRemoveBackground } = useImage();
 
   return (
-    <div className="min-h-screen p-8 bg-white">
+    <div className="min-h-screen p-8 pb-20 bg-white">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
         {/* Left Side */}
         <div className="md:w-1/2">
-          {selectedFile && (
-            <img
-              src={selectedFile}
-              alt="Preview"
-              className="w-full h-full rounded shadow"
-            />
+          {previewImage && (
+            <>
+              <img
+                src={previewImage}
+                alt="Preview"
+                className="w-full h-full rounded shadow"
+              />
+
+              <button
+                onClick={handleRemoveBackground}
+                disabled={bgRemovedImage}
+                className={`px-6 py-2 disabled:opacity-50 rounded-full mt-4 font-semibold transition bg-purple-600 text-white hover:bg-purple-700`}
+              >
+                Remove Background
+              </button>
+            </>
           )}
         </div>
 
         {/* Right Side */}
-        <div className="md:w-1/2 flex flex-col items-start gap-4">
-          <div className="w-full h-[300px] flex items-center justify-center bg-gray-100 text-gray-500 rounded">
-            No background-removed image
-          </div>
-
-          <button
-            disabled={!selectedFile}
-            className={`px-6 py-2 rounded-full mt-4 font-semibold transition ${
-              selectedFile
-                ? "bg-purple-600 text-white hover:bg-purple-700"
-                : "bg-gray-300 text-gray-500 cursor-not-allowed"
-            }`}
-          >
-            Remove Background
-          </button>
+        <div className="md:w-1/2">
+          {bgRemovedImage ? (
+            <>
+              <img
+                src={`data:image/png;base64,${bgRemovedImage}`}
+                alt="image"
+                className="h-full w-full object-cover"
+              />
+              <a
+                href={`data:image/png;base64,${bgRemovedImage}`}
+                download="bgremoded-image.png"
+              >
+                <button className="px-6 py-2 rounded-full mt-4 font-semibold transition bg-purple-600 text-white hover:bg-purple-700">
+                  Download
+                </button>
+              </a>
+            </>
+          ) : (
+            <div className="w-full h-[300px] flex items-center justify-center bg-gray-100 text-gray-500 rounded">
+              No background-removed image
+            </div>
+          )}
         </div>
       </div>
     </div>

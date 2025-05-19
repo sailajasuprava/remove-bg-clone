@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useImage } from "../context/ImageContext";
 
 function Home() {
-  const { setSelectedFile } = useImage();
+  const { setImage, setPreviewImage } = useImage();
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
@@ -11,7 +11,9 @@ function Home() {
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        setSelectedFile(reader.result);
+        const base64String = reader.result.split(",")[1];
+        setImage(base64String);
+        setPreviewImage(reader.result);
       };
 
       reader.readAsDataURL(file);

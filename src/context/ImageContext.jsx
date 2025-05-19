@@ -1,15 +1,47 @@
 import { createContext, useContext, useState } from "react";
-
+import axios from "axios";
 const ImageContext = createContext();
 
 function ImageProvider({ children }) {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [image, setImage] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
+  const [bgRemovedImage, setBgRemovedImage] = useState("");
 
+  async function handleRemoveBackground() {
+    try {
+      if (!image) return;
+
+      const response = await axios.post(
+        "https://api.withoutbg.com/v1.0/image-without-background-base64",
+        {
+          image_base64: image,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": import.meta.env.VITE_WITHOUT_BG,
+          },
+        }
+      );
+
+      const bgRemovedImage =
+        response?.data?.img_without_background_base64 || "";
+
+      setBgRemovedImage(bgRemovedImage);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   return (
     <ImageContext.Provider
       value={{
-        selectedFile,
-        setSelectedFile,
+        image,
+        setImage,
+        previewImage,
+        setPreviewImage,
+        bgRemovedImage,
+        setBgRemovedImage,
+        handleRemoveBackground,
       }}
     >
       {children}
