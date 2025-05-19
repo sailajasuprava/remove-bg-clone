@@ -6,11 +6,13 @@ function ImageProvider({ children }) {
   const [image, setImage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
   const [bgRemovedImage, setBgRemovedImage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleRemoveBackground() {
+    setIsLoading(true);
     try {
       if (!image) return;
-
+      console.log(import.meta.env.VITE_WITHOUT_BG);
       const response = await axios.post(
         "https://api.withoutbg.com/v1.0/image-without-background-base64",
         {
@@ -42,6 +44,7 @@ function ImageProvider({ children }) {
         bgRemovedImage,
         setBgRemovedImage,
         handleRemoveBackground,
+        isLoading,
       }}
     >
       {children}

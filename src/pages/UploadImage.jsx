@@ -1,7 +1,8 @@
 import { useImage } from "../context/ImageContext";
 
 const UploadPage = () => {
-  const { previewImage, bgRemovedImage, handleRemoveBackground } = useImage();
+  const { previewImage, bgRemovedImage, isLoading, handleRemoveBackground } =
+    useImage();
 
   return (
     <div className="min-h-screen p-8 pb-20 bg-white">
@@ -18,7 +19,7 @@ const UploadPage = () => {
 
               <button
                 onClick={handleRemoveBackground}
-                disabled={bgRemovedImage}
+                disabled={bgRemovedImage || isLoading}
                 className={`px-6 py-2 disabled:opacity-50 rounded-full mt-4 font-semibold transition bg-purple-600 text-white hover:bg-purple-700`}
               >
                 Remove Background
