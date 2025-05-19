@@ -12,7 +12,6 @@ function ImageProvider({ children }) {
     setIsLoading(true);
     try {
       if (!image) return;
-      console.log(import.meta.env.VITE_WITHOUT_BG);
       const response = await axios.post(
         "https://api.withoutbg.com/v1.0/image-without-background-base64",
         {
